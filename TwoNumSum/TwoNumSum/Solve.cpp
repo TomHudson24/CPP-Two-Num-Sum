@@ -1,0 +1,41 @@
+#include "Solve.h"
+
+
+std::vector<int> Solve::twoNumberSumBadSolve(std::vector<int> array, int targetSum)
+{
+	//edge case of only 1 entry, can't do comparison so return an empty array
+	if (array.size() == 1)
+	{
+		return {};
+	}
+
+	//init a new array to add data too
+	std::vector<int> returnArray;
+
+	//nested loop solution
+	for (int i = 0; i < array.size(); i++)
+	{
+		int currentInt = array[i];//value at start of array
+		for (int j = array.size() - 1; j > 0; j--)
+		{
+			int checkInt = array[j];//value at end of the array
+			if (targetSum == (currentInt + checkInt) && currentInt != checkInt)
+			{
+				std::vector<int>::iterator it;
+
+				it = std::find(returnArray.begin(), returnArray.end(), currentInt);
+				if (it == returnArray.end())//the value in currentInt has not already been added to the new array
+				{
+					returnArray.push_back(currentInt);
+				}
+				it = std::find(returnArray.begin(), returnArray.end(), checkInt);
+				if (it == returnArray.end())//the value in checkInt has not already been added to the new array
+				{
+					returnArray.push_back(checkInt);
+				}
+
+			}
+		}
+	}
+	return returnArray;
+}

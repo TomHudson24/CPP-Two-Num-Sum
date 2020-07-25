@@ -1,0 +1,3 @@
+﻿  test.cpp
+test.obj : error LNK2019: unresolved external symbol "public: class std::vector<int,class std::allocator<int> > __thiscall Solve::twoNumberSumBadSolve(class std::vector<int,class std::allocator<int> >,int)" (?twoNumberSumBadSolve@Solve@@QAE?AV?$vector@HV?$allocator@H@std@@@std@@V23@H@Z) referenced in function "private: virtual void __thiscall one_two_Test::TestBody(void)" (?TestBody@one_two_Test@@EAEXXZ)
+C:\Users\tomhu\Documents\repos\CPP-Two-Num-Sum\TwoNumSum\Debug\Test-Two-Num-Sum.exe : fatal error LNK1120: 1 unresolved externals
