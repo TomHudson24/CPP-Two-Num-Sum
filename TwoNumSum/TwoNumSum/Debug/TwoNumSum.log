@@ -1,2 +1,3 @@
-﻿  main.cpp
+﻿  Solve.cpp
+C:\Users\tomhu\Documents\repos\CPP-Two-Num-Sum\TwoNumSum\TwoNumSum\Solve.cpp(26,20): warning C4018: '<': signed/unsigned mismatch
   TwoNumSum.vcxproj -> C:\Users\tomhu\Documents\repos\CPP-Two-Num-Sum\TwoNumSum\Debug\TwoNumSum.exe
