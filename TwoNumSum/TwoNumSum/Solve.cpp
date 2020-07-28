@@ -11,6 +11,8 @@ obtain the target sum.
 
 You can assume that there wll be at most one pair of numbers summing up to the target sum.
 */
+
+//readable bad solve
 std::vector<int> Solve::twoNumberSumBadSolve(std::vector<int> array, int targetSum)
 {
 	//edge case of only 1 entry, can't do comparison so return an empty array
@@ -48,4 +50,50 @@ std::vector<int> Solve::twoNumberSumBadSolve(std::vector<int> array, int targetS
 		}
 	}
 	return returnArray;
+}
+
+//actual "optimal" bad solve. TC = O(N^2) | SC = O(1)
+std::vector<int> Solve::twoNumberSumBadSolve2(std::vector<int> array, int targetSum)
+{
+	for (int i = 0; i < array.size(); i++)
+	{
+		for (int j = array.size() - 1; j > 0; j--)
+		{
+			if (array[i] + array[j] == targetSum && array[i] != array[j])
+			{
+				return { array[i],array[j] };
+			}
+		}
+	}
+	return {};
+}
+
+//Best TC solve - using hash map
+std::vector<int>Solve::twoNumberSumHashSolve(std::vector<int> array, int targetSum)
+{
+	std::unordered_set<int> numbers;
+	//range based for loop
+	for (int num : array)
+	{
+		int potentialMatch = targetSum - num;//current numbers match 
+		if (numbers.find(potentialMatch) != numbers.end())//does the number exist in the set
+		{
+			return { potentialMatch, num };//number match has been found so return the pair 
+		}
+		else
+		{
+			numbers.insert(num);//no current match in the set so add this to "seen" numbers set
+		}
+
+	}
+	return {};//nothing hit so can't be done
+	
+}
+
+
+//Best SC solve - using sorting
+
+std::vector<int>Solve::twoNumberSumSortSolve(std::vector<int> array, int targetSum)
+{
+	return {};
 }

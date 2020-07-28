@@ -38,13 +38,54 @@ std::vector<int> twoNumberSumBadSolve(std::vector<int> array, int targetSum)
 	return returnArray;
 }
 
+std::vector<int> twoNumberSumBadSolve2(std::vector<int> array, int targetSum)
+{
+	for (int i = 0; i < array.size(); i++)
+	{
+		for (int j = array.size() - 1; j > 0; j--)
+		{
+			if (array[i] + array[j] == targetSum && array[i] != array[j])
+			{
+				return { array[i],array[j] };
+			}
+		}
+	}
+	return {};
+}
+
+//Best TC solve - using hash map
+std::vector<int>twoNumberSumHashSolve(std::vector<int> array, int targetSum)
+{
+	std::unordered_set<int> numbers;
+	//range based for loop
+	for (int num : array)
+	{
+		int potentialMatch = targetSum - num;//current numbers match 
+		if (numbers.find(potentialMatch) != numbers.end())//does the number exist in the set
+		{
+			return { potentialMatch, num };//number match has been found so return the pair 
+		}
+		else
+		{
+			numbers.insert(num);//no current match in the set so add this to "seen" numbers set
+		}
+
+	}
+	return {};//nothing hit so can't be done
+
+}
+
 TEST(TwoNumberSumTest, TestCaseOne)
 {
 	std::vector<int> inputArray = {3, 5, -4, 8, 11, 1, -1, 6};
 	std::vector<int> aim = { 11, -1 };
 	
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 10);
+	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 10);
+	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 10);
 	EXPECT_EQ(aim, output);
+	EXPECT_EQ(aim, output2);
+	EXPECT_EQ(aim, outputHash);
 }
 TEST(TwoNumberSumTest, TestCaseTwo)
 {
@@ -52,8 +93,11 @@ TEST(TwoNumberSumTest, TestCaseTwo)
 	std::vector<int> aim = { 4, 6 };
 
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 10);
+	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 10);
+	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 10);
 	EXPECT_EQ(aim, output);
-
+	EXPECT_EQ(aim, output2);
+	EXPECT_EQ(aim, outputHash);
 }
 TEST(TwoNumberSumTest, TestCaseThree)
 {
@@ -61,7 +105,11 @@ TEST(TwoNumberSumTest, TestCaseThree)
 	std::vector<int> aim = { 4, 1 };
 
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 5);
+	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 5);
+	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 5);
 	EXPECT_EQ(aim, output);
+	EXPECT_EQ(aim, output2);
+	EXPECT_EQ(aim, outputHash);
 }
 TEST(TwoNumberSumTest, TestCaseFour)
 {
@@ -69,7 +117,11 @@ TEST(TwoNumberSumTest, TestCaseFour)
 	std::vector<int> aim = { 6, -3 };
 
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 3);
+	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 3);
+	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 3);
 	EXPECT_EQ(aim, output);
+	EXPECT_EQ(aim, output2);
+	EXPECT_EQ(aim, outputHash);
 }
 TEST(TwoNumberSumTest, TestCaseFive)
 {
@@ -77,7 +129,11 @@ TEST(TwoNumberSumTest, TestCaseFive)
 	std::vector<int> aim = { 8,9 };
 
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 17);
+	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 17);
+	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 17);
 	EXPECT_EQ(aim, output);
+	EXPECT_EQ(aim, output2);
+	EXPECT_EQ(aim, outputHash);
 }
 TEST(TwoNumberSumTest, TestCaseSix)
 {
@@ -85,7 +141,11 @@ TEST(TwoNumberSumTest, TestCaseSix)
 	std::vector<int> aim = { 3,15 };
 
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 18);
+	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 18);
+	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 18);
 	EXPECT_EQ(aim, output);
+	EXPECT_EQ(aim, output2);
+	EXPECT_EQ(aim, outputHash);
 }
 TEST(TwoNumberSumTest, TestCaseSeven)
 {
@@ -93,7 +153,11 @@ TEST(TwoNumberSumTest, TestCaseSeven)
 	std::vector<int> aim = { -5, 0 };
 
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, -5);
+	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, -5);
+	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, -5);
 	EXPECT_EQ(aim, output);
+	EXPECT_EQ(aim, output2);
+	EXPECT_EQ(aim, outputHash);
 }
 TEST(TwoNumberSumTest, TestCaseEight)
 {
@@ -101,7 +165,11 @@ TEST(TwoNumberSumTest, TestCaseEight)
 	std::vector<int> aim = { 210, -47 };
 
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 163);
+	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 163);
+	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 163);
 	EXPECT_EQ(aim, output);
+	EXPECT_EQ(aim, output2);
+	EXPECT_EQ(aim, outputHash);
 }
 TEST(TwoNumberSumTest, TestCaseNine)
 {
@@ -109,7 +177,11 @@ TEST(TwoNumberSumTest, TestCaseNine)
 	std::vector<int> aim = {};
 
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 164);
+	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 164);
+	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 164);
 	EXPECT_EQ(aim, output);
+	EXPECT_EQ(aim, output2);
+	EXPECT_EQ(aim, outputHash);
 }
 TEST(TwoNumberSumTest, TestCaseTen)
 {
@@ -117,7 +189,11 @@ TEST(TwoNumberSumTest, TestCaseTen)
 	std::vector<int> aim = {};
 
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 15);
+	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 15);
+	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 15);
 	EXPECT_EQ(aim, output);
+	EXPECT_EQ(aim, output2);
+	EXPECT_EQ(aim, outputHash);
 }
 TEST(TwoNumberSumTest, TestCaseEleven)
 {
@@ -125,7 +201,11 @@ TEST(TwoNumberSumTest, TestCaseEleven)
 	std::vector<int> aim = {};
 
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 15);
+	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 15);
+	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 15);
 	EXPECT_EQ(aim, output);
+	EXPECT_EQ(aim, output2);
+	EXPECT_EQ(aim, outputHash);
 }
 TEST(TwoNumberSumTest, TestCaseTwelve)
 {
@@ -133,7 +213,11 @@ TEST(TwoNumberSumTest, TestCaseTwelve)
 	std::vector<int> aim = {};
 
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 15);
+	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 15);
+	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 15);
 	EXPECT_EQ(aim, output);
+	EXPECT_EQ(aim, output2);
+	EXPECT_EQ(aim, outputHash);
 }
 int main(int argc, char** argv) {
 	::testing::InitGoogleTest(&argc, argv);

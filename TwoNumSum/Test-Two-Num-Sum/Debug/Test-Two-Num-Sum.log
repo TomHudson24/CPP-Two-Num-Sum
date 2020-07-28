@@ -1,3 +1,4 @@
 ﻿  test.cpp
 C:\Users\tomhu\Documents\repos\CPP-Two-Num-Sum\TwoNumSum\Test-Two-Num-Sum\test.cpp(14,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\tomhu\Documents\repos\CPP-Two-Num-Sum\TwoNumSum\Test-Two-Num-Sum\test.cpp(43,20): warning C4018: '<': signed/unsigned mismatch
   Test-Two-Num-Sum.vcxproj -> C:\Users\tomhu\Documents\repos\CPP-Two-Num-Sum\TwoNumSum\Debug\Test-Two-Num-Sum.exe
