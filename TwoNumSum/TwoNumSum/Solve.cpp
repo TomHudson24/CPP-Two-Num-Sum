@@ -1,7 +1,7 @@
 #include "Solve.h"
 
+//Task is:
 /*
-Task is:
 Write a function that takes in a non-empty array of distinct integers and an integer representing a target sum. If any two numbers in 
 the input array sum up to the taret sum, the function should return them in an array, in any order. If no two numbers sum up to the target sum, 
 the function should return an empty array.
@@ -12,7 +12,19 @@ obtain the target sum.
 You can assume that there wll be at most one pair of numbers summing up to the target sum.
 */
 
-//readable bad solve
+//Solves:
+/*
+The first and second solve are using nested for loops. This is a poor solution for Time Complexity (Sub-quadratic time) however 
+Space Complexity for it is optimal (Constant space).
+
+The third solve uses a hashmap to store values so they can be checked against. This reduces the need for a second for loop, improving
+Time Complexity (Linear time) but the Space Complexity is worse as the hash map will be storing values (Linear space).
+
+The fourth and final solve uses the sorting algorithm built into the standard template library. This can be assumed as an improve
+on Time Complexity when compared to the Nested For Loop solve (Quasilinear time) but worse than the Hash solve. The Space Complexity
+is Constant space meaning it is better than the Hash solve if Space is more important than Time.
+*/
+//Readable Nested For Loop Solve.
 std::vector<int> Solve::twoNumberSumBadSolve(std::vector<int> array, int targetSum)
 {
 	//edge case of only 1 entry, can't do comparison so return an empty array
@@ -52,7 +64,7 @@ std::vector<int> Solve::twoNumberSumBadSolve(std::vector<int> array, int targetS
 	return returnArray;
 }
 
-//actual "optimal" bad solve. TC = O(N^2) | SC = O(1)
+//Nested For Loop "optimal" Solve.		TC = O(N^2) | SC = O(1)
 std::vector<int> Solve::twoNumberSumBadSolve2(std::vector<int> array, int targetSum)
 {
 	for (int i = 0; i < array.size(); i++)
@@ -68,7 +80,7 @@ std::vector<int> Solve::twoNumberSumBadSolve2(std::vector<int> array, int target
 	return {};
 }
 
-//Best TC solve - using hash map
+//Best TC solve - using hash map		TC = O(N) | SC = O(N)
 std::vector<int>Solve::twoNumberSumHashSolve(std::vector<int> array, int targetSum)
 {
 	std::unordered_set<int> numbers;
@@ -90,10 +102,27 @@ std::vector<int>Solve::twoNumberSumHashSolve(std::vector<int> array, int targetS
 	
 }
 
-
-//Best SC solve - using sorting
-
+//Best SC solve - using sorting			TC = O(nLog(n)) | SC = O(1)
 std::vector<int>Solve::twoNumberSumSortSolve(std::vector<int> array, int targetSum)
 {
+	std::sort(array.begin(), array.end());//sort the array, it is assumed that this is done in O(N(log n)) TC
+	int left = 0, right = array.size() - 1;
+	while (left < right)
+	{
+		int currentSum = array[left] + array[right];//sum the current iteration of values
+		if (currentSum == targetSum)
+		{
+			return { array[left], array[right] };
+		}
+		else if (currentSum < targetSum)//move the left value up the array
+		{
+			left++;
+		}
+		else if (currentSum > targetSum)//move the right value down the array
+		{
+			right--;
+		}
+	}
+
 	return {};
 }

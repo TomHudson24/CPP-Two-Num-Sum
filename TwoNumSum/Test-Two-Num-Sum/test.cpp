@@ -1,4 +1,6 @@
 ﻿#include "pch.h"
+//basic solve using nested for loops
+//my solve
 std::vector<int> twoNumberSumBadSolve(std::vector<int> array, int targetSum)
 {
 	//edge case of only 1 entry, can't do comparison so return an empty array
@@ -37,7 +39,7 @@ std::vector<int> twoNumberSumBadSolve(std::vector<int> array, int targetSum)
 	}
 	return returnArray;
 }
-
+//better nested loop solve (less variable creation)
 std::vector<int> twoNumberSumBadSolve2(std::vector<int> array, int targetSum)
 {
 	for (int i = 0; i < array.size(); i++)
@@ -74,18 +76,47 @@ std::vector<int>twoNumberSumHashSolve(std::vector<int> array, int targetSum)
 	return {};//nothing hit so can't be done
 
 }
+//Best SC solve - using array sorting
+std::vector<int>twoNumberSumSortSolve(std::vector<int> array, int targetSum)
+{
+	std::sort(array.begin(), array.end());//sort the array, it is assumed that this is done in O(N(log n)) TC
+	int left = 0, right = array.size() - 1;
+	while (left < right)
+	{
+		int currentSum = array[left] + array[right];//sum the current iteration of values
+		if (currentSum == targetSum)
+		{
+			return { array[left], array[right] };
+		}
+		else if (currentSum < targetSum)//move the left value up the array
+		{
+			left++;
+		}
+		else if (currentSum > targetSum)//move the right value down the array
+		{
+			right--;
+		}
+	}
+
+	return {};
+}
 
 TEST(TwoNumberSumTest, TestCaseOne)
 {
 	std::vector<int> inputArray = {3, 5, -4, 8, 11, 1, -1, 6};
 	std::vector<int> aim = { 11, -1 };
+	std::vector<int> aimReverse = { -1, 11 };
 	
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 10);
 	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 10);
 	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 10);
+	std::vector<int> outputSort = twoNumberSumSortSolve(inputArray, 10);
+
 	EXPECT_EQ(aim, output);
 	EXPECT_EQ(aim, output2);
 	EXPECT_EQ(aim, outputHash);
+	EXPECT_EQ(aimReverse, outputSort);
+
 }
 TEST(TwoNumberSumTest, TestCaseTwo)
 {
@@ -95,33 +126,47 @@ TEST(TwoNumberSumTest, TestCaseTwo)
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 10);
 	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 10);
 	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 10);
+	std::vector<int> outputSort = twoNumberSumSortSolve(inputArray, 10);
+
 	EXPECT_EQ(aim, output);
 	EXPECT_EQ(aim, output2);
 	EXPECT_EQ(aim, outputHash);
+	EXPECT_EQ(aim, outputSort);
+
 }
 TEST(TwoNumberSumTest, TestCaseThree)
 {
 	std::vector<int> inputArray = { 4, 6, 1};
 	std::vector<int> aim = { 4, 1 };
+	std::vector<int> aimReverse = { 1, 4 };
 
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 5);
 	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 5);
 	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 5);
+	std::vector<int> outputSort = twoNumberSumSortSolve(inputArray, 5);
+
 	EXPECT_EQ(aim, output);
 	EXPECT_EQ(aim, output2);
 	EXPECT_EQ(aim, outputHash);
+	EXPECT_EQ(aimReverse, outputSort);
+
 }
 TEST(TwoNumberSumTest, TestCaseFour)
 {
 	std::vector<int> inputArray = { 4,6,1,-3 };
 	std::vector<int> aim = { 6, -3 };
+	std::vector<int> aimReverse = { -3, 6 };
 
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 3);
 	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 3);
 	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 3);
+	std::vector<int> outputSort = twoNumberSumSortSolve(inputArray, 3);
+
 	EXPECT_EQ(aim, output);
 	EXPECT_EQ(aim, output2);
 	EXPECT_EQ(aim, outputHash);
+	EXPECT_EQ(aimReverse, outputSort);
+
 }
 TEST(TwoNumberSumTest, TestCaseFive)
 {
@@ -131,9 +176,12 @@ TEST(TwoNumberSumTest, TestCaseFive)
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 17);
 	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 17);
 	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 17);
+	std::vector<int> outputSort = twoNumberSumSortSolve(inputArray, 17);
+
 	EXPECT_EQ(aim, output);
 	EXPECT_EQ(aim, output2);
 	EXPECT_EQ(aim, outputHash);
+	EXPECT_EQ(aim, outputSort);
 }
 TEST(TwoNumberSumTest, TestCaseSix)
 {
@@ -143,9 +191,12 @@ TEST(TwoNumberSumTest, TestCaseSix)
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 18);
 	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 18);
 	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 18);
+	std::vector<int> outputSort = twoNumberSumSortSolve(inputArray, 18);
+
 	EXPECT_EQ(aim, output);
 	EXPECT_EQ(aim, output2);
 	EXPECT_EQ(aim, outputHash);
+	EXPECT_EQ(aim, outputSort);
 }
 TEST(TwoNumberSumTest, TestCaseSeven)
 {
@@ -155,21 +206,28 @@ TEST(TwoNumberSumTest, TestCaseSeven)
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, -5);
 	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, -5);
 	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, -5);
+	std::vector<int> outputSort = twoNumberSumSortSolve(inputArray, -5);
+
 	EXPECT_EQ(aim, output);
 	EXPECT_EQ(aim, output2);
 	EXPECT_EQ(aim, outputHash);
+	EXPECT_EQ(aim, outputSort);
 }
 TEST(TwoNumberSumTest, TestCaseEight)
 {
 	std::vector<int> inputArray = { 21, 301, 12, 4, 65, 56, 210, 356, 9, -47 };
 	std::vector<int> aim = { 210, -47 };
+	std::vector<int> aimReverse = { -47, 210 };
 
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 163);
 	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 163);
 	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 163);
+	std::vector<int> outputSort = twoNumberSumSortSolve(inputArray, 163);
+
 	EXPECT_EQ(aim, output);
 	EXPECT_EQ(aim, output2);
 	EXPECT_EQ(aim, outputHash);
+	EXPECT_EQ(aimReverse, outputSort);
 }
 TEST(TwoNumberSumTest, TestCaseNine)
 {
@@ -179,9 +237,12 @@ TEST(TwoNumberSumTest, TestCaseNine)
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 164);
 	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 164);
 	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 164);
+	std::vector<int> outputSort = twoNumberSumSortSolve(inputArray, 164);
+
 	EXPECT_EQ(aim, output);
 	EXPECT_EQ(aim, output2);
 	EXPECT_EQ(aim, outputHash);
+	EXPECT_EQ(aim, outputSort);
 }
 TEST(TwoNumberSumTest, TestCaseTen)
 {
@@ -191,9 +252,12 @@ TEST(TwoNumberSumTest, TestCaseTen)
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 15);
 	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 15);
 	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 15);
+	std::vector<int> outputSort = twoNumberSumSortSolve(inputArray, 15);
+
 	EXPECT_EQ(aim, output);
 	EXPECT_EQ(aim, output2);
 	EXPECT_EQ(aim, outputHash);
+	EXPECT_EQ(aim, outputSort);
 }
 TEST(TwoNumberSumTest, TestCaseEleven)
 {
@@ -203,9 +267,12 @@ TEST(TwoNumberSumTest, TestCaseEleven)
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 15);
 	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 15);
 	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 15);
+	std::vector<int> outputSort = twoNumberSumSortSolve(inputArray, 15);
+
 	EXPECT_EQ(aim, output);
 	EXPECT_EQ(aim, output2);
 	EXPECT_EQ(aim, outputHash);
+	EXPECT_EQ(aim, outputSort);
 }
 TEST(TwoNumberSumTest, TestCaseTwelve)
 {
@@ -215,9 +282,12 @@ TEST(TwoNumberSumTest, TestCaseTwelve)
 	std::vector<int> output = twoNumberSumBadSolve(inputArray, 15);
 	std::vector<int> output2 = twoNumberSumBadSolve2(inputArray, 15);
 	std::vector<int> outputHash = twoNumberSumHashSolve(inputArray, 15);
+	std::vector<int> outputSort = twoNumberSumSortSolve(inputArray, 15);
+
 	EXPECT_EQ(aim, output);
 	EXPECT_EQ(aim, output2);
 	EXPECT_EQ(aim, outputHash);
+	EXPECT_EQ(aim, outputSort);
 }
 int main(int argc, char** argv) {
 	::testing::InitGoogleTest(&argc, argv);
